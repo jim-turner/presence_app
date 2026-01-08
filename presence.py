@@ -1,3 +1,6 @@
+
+from datetime import datetime
+
 presence_indicators = ["now", "stillness", "presence", "awareness", "observer", "breath"]
 
 def get_score(text_to_check):
@@ -28,3 +31,14 @@ user_entry = input("How was your day? Type your journal entry here: ")
 final_score = get_score(user_entry)
 
 print(f"Your Presence Score for this entry is: {final_score}")
+
+
+# This is the part where I begin to write to the file
+
+# This creates a timestamp like: 2026-01-08 10:45:30
+timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+
+# This creates (or opens) a file called 'journal.txt'
+# 'a' stands for 'append' - it adds to the end of the file
+with open("journal.txt", "a") as file:
+    file.write(f"[{timestamp}] Score: {final_score} | Entry: {user_entry}\n")
