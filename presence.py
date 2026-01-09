@@ -42,3 +42,32 @@ timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
 # 'a' stands for 'append' - it adds to the end of the file
 with open("journal.txt", "a") as file:
     file.write(f"[{timestamp}] Score: {final_score} | Entry: {user_entry}\n")
+
+
+# --- Reading the Journal ---
+print("\nReading your presence history ...")
+
+with open("journal.txt", "r") as file:
+    lines = file.readlines()  # This creates a list of lines
+
+    # Lets count how many line you have
+    total_entries = len(lines)
+    print(f"You have recorded {total_entries} moments of presence.")
+
+scores = [] # Create an empty list to hold just the numbers
+
+for line in lines:
+    if "Score: " in line:
+        # 1. Split the line at "Score: "
+        parts = line.split("Score: ")
+
+        # 2. Grab the part AFTER "Score: " ( which is index 1 )
+        # 3. Take the first character of that part ( the number )
+        score_value = parts[1][0]
+
+        # 4. Covert it from text to an integer ( a number that you can do math on )
+        scores.append(int(score_value))
+
+# Now we can do the math
+average = sum(scores) / len(scores)
+print(f"Your average presence score is: {average:.1f}")
